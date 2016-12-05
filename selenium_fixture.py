@@ -1,6 +1,8 @@
 from selenium import webdriver
 import pytest
 from model.application import Application
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
 
 
 @pytest.fixture(scope="module")

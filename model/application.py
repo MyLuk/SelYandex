@@ -1,7 +1,13 @@
+from selenium.common.exceptions import *
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
 class Application(object):
 
     def __init__(self, driver):
         self.driver = driver
+        self.wait=WebDriverWait(driver, 10)
 
     def login(self, user):
         driver=self.driver
@@ -18,3 +24,21 @@ class Application(object):
 
     def go_to_home_page(self):
         self.driver.get('http://yandex.ru')
+
+    def is_logged_in(self):
+        driver=self.driver
+        try:
+            self.wait.until(EC.presence_of_element_located((By.XPATH, "//span[text()='Входящие']")))
+            return True
+        except WebDriverException:
+            return False
+
+    def is_not_logged_in(self):
+        driver=self.driver
+        try:
+            self.wait.until(EC.presence_of_element_located((By.NAME, 'login')))
+            return True
+        except WebDriverException:
+            return False
+
+
